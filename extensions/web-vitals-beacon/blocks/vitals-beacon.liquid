@@ -1,0 +1,33 @@
+{% comment %}
+  App embed block. Merchants turn this on once in Theme editor > App embeds.
+  Renders nothing visible — it only loads the vitals beacon script and
+  passes it the shop domain and current path via data attributes.
+{% endcomment %}
+
+<div
+  id="velocity-vitals-beacon"
+  data-shop="{{ shop.permanent_domain }}"
+  data-path="{{ request.path | escape }}"
+  data-ingest-url="{{ block.settings.ingest_url | default: '' }}"
+  style="display:none"
+></div>
+
+<script
+  src="{{ 'velocity-vitals.js' | asset_url }}"
+  defer
+></script>
+
+{% schema %}
+{
+  "name": "AAW Speed Optimize vitals beacon",
+  "target": "body",
+  "settings": [
+    {
+      "type": "text",
+      "id": "ingest_url",
+      "label": "Ingest endpoint",
+      "info": "Set automatically by the AAW Speed Optimize app. Leave blank unless instructed otherwise."
+    }
+  ]
+}
+{% endschema %}
